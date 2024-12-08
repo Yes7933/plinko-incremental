@@ -61,6 +61,22 @@
 			<button id="loadingbutton">Play!</button>
 			<button id="loadingbuttonmute">Play (while muted)</button>
 			<img src="assets/img/omg.png" style="position: absolute; top: 20%; width: 40vw; aspect-ratio: 2048 / 253" />
+			<div id="updatetext">
+				Update 1.5.1 <a href="https://github.com/Yes7933/plinko-incremental/releases">Full Changelog</a> <br />
+				<br />
+				- UI overhaul (mainly on the first page)
+				<br />
+				- Physics are more realistic and optimized
+				<br />
+				- Level bonus to BallPoints nerfed
+				<br />
+				- Particles added when a ball reaches a box
+				<br />
+				- Anti-stuck mechanism added for stuck balls
+				<br />
+				- Fixed Final II
+				<br />
+			</div>
 		</div>
 		<div id="screen-1">
 			<div id="statwall">
@@ -137,7 +153,7 @@
 				Changelog found <a href="https://github.com/Yes7933/plinko-incremental/releases">here</a>
 			</p>
 			<p class="p" id="version">
-				Version: 1.5
+				Version: 1.4.1
 				<br /><br />
 				Endgame: Layer+++ purchased
 				<br /><br />
@@ -147,21 +163,47 @@
 			<button id="mutesfx">Toggle SFX</button>
 			<button id="disableplinkoauto">Disable Auto Plinko Upgrades</button>
 			<button id="disableautodrop">Disable Auto Drop</button>
+			<button id="disableparticles">Disable Particles</button>
 			<div id="ballcompsetting">
 				<p id="ballcompdisplay">Ball Compaction Start: 10 Balls</p>
-				<input type="range" min="1" max="100" value="10" step="1" class="slider" id="ballcomp" />
+				<input onkeydown="return false;" type="range" min="1" max="100" value="10" step="1" class="slider" id="ballcomp" />
 			</div>
 			<button id="disableboxifyauto">Disable Auto Boxify Upgrades</button>
 			<div id="precisionsetting">
 				<p id="precisiondisplay">Digit Precision: 3 Places</p>
-				<input type="range" min="1" max="10" value="3" step="1" class="slider" id="precision" />
+				<input onkeydown="return false;" type="range" min="1" max="10" value="3" step="1" class="slider" id="precision" />
 			</div>
 			<div id="notationsetting">
 				<p id="notationdisplay">Number Notation: Scientific</p>
-				<input type="range" min="0" max="9" value="0" step="1" class="slider" id="notation" />
+				<input onkeydown="return false;" type="range" min="0" max="9" value="0" step="1" class="slider" id="notation" />
 			</div>
 		</div>
 		<div id="screen1">
+			<div id="opacitytoggle"></div>
+			<div class="fake3d"></div>
+			<div class="outlinelayer" id="outlinelayer1">
+				<div class="corner1">
+					<div class="corner1line"></div>
+				</div>
+				<div class="corner2">
+					<div class="corner2line"></div>
+				</div>
+				<div class="corner3">
+					<div class="corner3line"></div>
+				</div>
+				<div class="corner4">
+					<div class="corner4line"></div>
+				</div>
+			</div>
+			<div class="fakecolor"></div>
+			<button id="balldrop">Drop Ball!</button>
+			<div class="fakecolor2"></div>
+			<div id="ballbar">
+				<div id="innerballbar"></div>
+			</div>
+			<div id="spbar">
+				<div id="innerspbar"></div>
+			</div>
 			<div id="board">
 				<div id="pegs">
 					<div class="pegrow">
@@ -270,7 +312,6 @@
 					</div>
 				</div>
 			</div>
-			<button id="balldrop">Drop Ball!</button>
 			<div id="pupgradebuilding">
 				<div id="pbuildingtitle" class="buildingtitle">Plinko Upgrades</div>
 				<button id="parrow1" class="arrow1">&lt;</button>
@@ -316,16 +357,31 @@
 					<button id="pupgradebutton1" class="upgradebutton">Buy 1!</button>
 				</div>
 			</div>
-			<div id="movehelp">
-				<p class="p">Use WASD to move!</p>
-			</div>
 			<div id="newsticker">
 				<p id="newstickertext">:3 hewwo!</p>
 			</div>
-			<button id="focus">Focus/Unfocus on board</button>
+			<div id="ballcompactionmeter">Ball Compaction (extra balls contribute as a BallPoint + XP multipier): x1</div>
+			<button id="focus">Show/Hide Plinko Upgrades</button>
+			<div class="fake3d" id="fake3d2"></div>
+			<div class="outlinelayer" id="outlinelayer2">
+				<div class="corner1" id="corner12">
+					<div class="corner1line"></div>
+				</div>
+				<div class="corner2" id="corner22">
+					<div class="corner2line"></div>
+				</div>
+				<div class="corner3" id="corner32">
+					<div class="corner3line"></div>
+				</div>
+				<div class="corner4" id="corner42">
+					<div class="corner4line"></div>
+				</div>
+			</div>
+			<div class="fakecolor" id="fakecolor12"></div>
+			<div class="fakecolor2" id="fakecolor22"></div>
+			<button id="consoletitle">Log</button>
 			<div id="consolemain">
-				<div id="consoletitle">Log</div>
-				<div id="consoletext">> Welcome!</div>
+				<div id="consoletext">> Welcome! Use WASD (or arrowkeys) (or the buttons in the utility dropdown) to move!</div>
 			</div>
 			<div id="consoleinner"></div>
 		</div>
@@ -819,8 +875,7 @@
 				</div>
 				<button id="revbutton">Stop!</button>
 				<span id="revdesc">
-					Press stop when the blue line is in the yellow area and earn revolutions! You gain more revolutions based on your streak. At 50
-					 revolutions
+					Press stop when the blue line is in the yellow area and earn revolutions! You gain more revolutions based on your streak. At 50 revolutions
 					roll no longer resets QoL upgrades.
 				</span>
 			</div>
@@ -1013,7 +1068,7 @@
 			<div id="transferbuilding">
 				<span id="transferbuildingcontainer">
 					<span>Positive</span>
-					<input type="range" min="-100" max="100" value="0" step="1" class="slider" id="transferslider" />
+					<input onkeydown="return false;" type="range" min="-100" max="100" value="0" step="1" class="slider" id="transferslider" />
 					<span>Negative</span>
 					<span id="transferamount"></span>
 					<span

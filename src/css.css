@@ -1,19 +1,187 @@
 @font-face {
 	font-family: "Inconsolata";
-	src: url(/plinko-incremental/assets/Inconsolata-Black.ttf);
+	src: url(/assets/Inconsolata-Black.ttf);
 }
 img {
 	aspect-ratio: 1 / 1;
 }
 #board {
-	opacity: 0.25;
-	position: relative;
-	left: 25%;
-	width: 50%;
-	height: 100%;
+	position: absolute;
+	left: 30%;
+	top: 10%;
+	width: 40%;
+	height: 80%;
 	outline: black 0.25vmin solid;
 	background-color: gainsboro;
 	z-index: -1;
+	overflow: hidden;
+}
+.fake3d {
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	left: 25%;
+	background-color: rgb(185, 185, 185);
+	z-index: -3;
+	outline: black 0.25vmin solid;
+}
+#fake3d2 {
+	width: 24%;
+	height: 58%;
+	position: absolute;
+	left: calc(0% + 0.5vmin);
+	top: calc(26% + 0.5vmin);
+	background-color: rgb(185, 185, 185);
+	z-index: -3;
+	outline: black 0.25vmin solid;
+}
+.outlinelayer {
+	background-color: transparent;
+	z-index: -1;
+}
+#outlinelayer1 {
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	left: 25%;
+	outline: black 0.25vmin solid;
+}
+#outlinelayer2 {
+	width: 24%;
+	height: 58%;
+	position: absolute;
+	left: calc(0% + 0.5vmin);
+	top: calc(26% + 0.5vmin);
+	z-index: -1;
+	outline: black 0.25vmin solid;
+}
+#fakecolor22 {
+	width: 24%;
+	height: calc(4% - 0.5vmin);
+	position: absolute;
+	left: calc(0% + 0.5vmin);
+	top: calc(26% + 0.5vmin);
+	background-color: rgb(197, 197, 197);
+	z-index: -2;
+	border-top: black 0.25vmin solid;
+}
+#fakecolor12 {
+	width: 24%;
+	height: calc(4% - 0.5vmin);
+	position: absolute;
+	left: calc(0% + 0.5vmin);
+	bottom: calc(15% + 0.5vmin);
+	top: auto;
+	background-color: rgb(164, 164, 164);
+	z-index: -2;
+	border-bottom: black 0.25vmin solid;
+}
+#corner12,
+#corner22,
+#corner32,
+#corner42 {
+	width: 8%;
+	height: calc(8% - 0.75vmin);
+	background-color: black;
+	position: absolute;
+	display: block;
+	z-index: -1;
+}
+#opacitytoggle {
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	left: 25%;
+	background-color: rgb(185, 185, 185);
+	opacity: 0;
+	z-index: 0;
+	outline: black 0.25vmin solid;
+}
+.fakecolor {
+	width: 50%;
+	height: 10%;
+	position: absolute;
+	left: 25%;
+	bottom: 0;
+	background-color: rgb(164, 164, 164);
+	z-index: -2;
+	border-bottom: black 0.25vmin solid;
+}
+.fakecolor2 {
+	width: 50%;
+	height: 10%;
+	position: absolute;
+	left: 25%;
+	top: 0;
+	background-color: rgb(197, 197, 197);
+	z-index: -2;
+	border-top: black 0.25vmin solid;
+}
+.corner1,
+.corner2,
+.corner3,
+.corner4 {
+	width: calc(10% + 0.75vmin);
+	height: calc(10% + 0.75vmin);
+	background-color: black;
+	position: absolute;
+	display: block;
+	z-index: -1;
+}
+.corner1 {
+	top: 0;
+	left: 0;
+	clip-path: polygon(100% 100%, 0% 0%, 0% 100%);
+}
+.corner1line {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	clip-path: polygon(100% 100%, 0% 0%, 0% 100%);
+	width: calc(100% - 0.25vmin);
+	height: calc(100% - 0.25vmin);
+	background-color: rgb(185, 185, 185);
+}
+.corner2 {
+	top: 0;
+	right: 0;
+	clip-path: polygon(100% 100%, 100% 0%, 0% 100%);
+}
+.corner2line {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	clip-path: polygon(100% 100%, 100% 0%, 0% 100%);
+	width: calc(100% - 0.25vmin);
+	height: calc(100% - 0.25vmin);
+	background-color: rgb(185, 185, 185);
+}
+.corner3 {
+	bottom: 0;
+	left: 0;
+	clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+}
+.corner3line {
+	bottom: 0;
+	left: 0;
+	clip-path: polygon(0% 0%, 100% 0%, 0% 100%);
+	width: calc(100% - 0.25vmin);
+	height: calc(100% - 0.25vmin);
+	background-color: rgb(185, 185, 185);
+}
+.corner4 {
+	bottom: 0;
+	right: 0;
+	clip-path: polygon(100% 0%, 0% 0%, 100% 100%);
+}
+.corner4line {
+	position: absolute;
+	top: 0;
+	right: 0;
+	clip-path: polygon(100% 0%, 0% 0%, 100% 100%);
+	width: calc(100% - 0.25vmin);
+	height: calc(100% - 0.25vmin);
+	background-color: rgb(185, 185, 185);
 }
 #boxes {
 	position: absolute;
@@ -54,16 +222,14 @@ img {
 	opacity: 0.75;
 	word-break: break-all;
 }
-
 #redbox {
 	background-color: #f7432f;
 	opacity: 0.75;
 	word-break: break-all;
 }
-
 body {
 	margin: 0px;
-	background-color: #b0def5;
+	background-color: rgb(212, 212, 212);
 	overflow: hidden;
 }
 
@@ -84,7 +250,9 @@ body {
 	height: 30px;
 	flex-shrink: 0;
 	outline: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgb(182, 182, 182) 100%);
 }
 
 .pegrow {
@@ -108,19 +276,68 @@ body {
 
 #balldrop {
 	position: absolute;
-	left: 25%;
-	top: 0%;
-	background-color: #c2c2c2;
+	left: 35%;
+	bottom: 4.25%;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	font-size: 2vmin;
 	font-family: "Inconsolata";
 	text-align: center;
-	width: 50%;
+	width: 30%;
 	height: 5%;
 	border: black solid 0.25vmin;
-	border-left: transparent;
-	border-right: transparent;
+	transform: perspective(10px) rotateX(1.5deg);
+	box-shadow: black;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
 }
-
+#balldrop:hover {
+	animation: 0.25s forwards linear normal 0s 1 pressed;
+}
+#focus {
+	position: absolute;
+	left: 35%;
+	top: 4.25%;
+	border: black solid 0.25vmin;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
+	font-family: "Inconsolata";
+	width: 30%;
+	height: 5%;
+	font-size: 1.75vmin;
+	transform: perspective(10px) rotateX(-1.5deg);
+	box-shadow: black;
+	-webkit-box-shadow: 0px -5px 5px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px -5px 5px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px -5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+#focus:hover {
+	top: 4%;
+	box-shadow: none;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+#ballcompactionmeter {
+	display: block;
+	width: 45%;
+	height: 2%;
+	position: absolute;
+	bottom: 97%;
+	left: 27.5%;
+	outline: black solid 0.25vmin;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
+	font-size: 1.9vmin;
+	font-family: "Inconsolata";
+	text-align: center;
+	white-space: nowrap;
+	overflow: hidden;
+	transform: perspective(10px) rotateX(-1deg);
+}
 #deleteballs {
 	background-color: #e89a95;
 	text-align: center;
@@ -135,7 +352,9 @@ body {
 
 #ballpoints {
 	text-align: center;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	width: 100%;
 	height: 5%;
 	font-size: 2vmin;
@@ -151,7 +370,9 @@ body {
 }
 
 #level {
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	font-size: 2vmin;
 	font-family: "Inconsolata";
 	text-align: center;
@@ -180,20 +401,20 @@ audio {
 
 #pupgradebuilding {
 	position: absolute;
-	background-color: #c2c2c2;
-	top: 15%;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
+	top: 25%;
 	font-size: 1.9vmin;
 	font-family: "Inconsolata";
 	text-align: center;
 	left: 25%;
-	width: 50%;
-	height: 70%;
-	display: flex;
-	align-content: center;
-	flex-direction: column;
-	justify-content: space-evenly;
-	border: black solid 0.25vmin;
+	width: calc(50% - 1vmin);
+	height: 50%;
+	border: black solid 0.5vmin;
 	padding: 0px;
+	overflow: hidden;
+	opacity: 0;
 }
 #consolemain {
 	font-family: "Inconsolata";
@@ -213,75 +434,164 @@ audio {
 	position: absolute;
 	top: calc(30% + 0.5vmin);
 	left: calc(2% + 0.5vmin);
-	background-image: url("/plinko-incremental/assets/img/logbackground.png");
+	background-image: url("/assets/img/logbackground.png");
 	background-repeat: repeat;
 	background-position: 0% 0px;
 	animation: 1s forwards linear 0s infinite backgroundup;
 	opacity: 0.5;
 	display: flex;
 	flex-direction: column;
+	-webkit-box-shadow: 0px 0px 50px 30px rgba(103, 174, 236, 1);
+	-moz-box-shadow: 0px 0px 50px 30px rgba(103, 174, 236, 1);
+	box-shadow: 0px 0px 50px 30px rgba(103, 174, 236, 1);
 }
 #consoletext {
 	text-align: left;
 	padding-left: 1vmin;
+	padding-top: 0.5vmin;
 	position: absolute;
 	z-index: 3;
-	padding-top: calc(2em + 0.1vmin);
+}
+#ballbar {
+	position: absolute;
+	top: 10%;
+	right: 26.25%;
+	height: 80%;
+	width: 2.5%;
+	background-color: rgb(154, 154, 154);
+	border: black solid 0.25vmin;
+	border-top: black solid 0.35vmin;
+	border-bottom: black solid 0.35vmin;
+	transform: perspective(10px) rotateY(-1.25deg);
+	display: flex;
+}
+#innerballbar {
+	background-color: #c3fab9;
+	opacity: 0.75;
+	width: 100%;
+	height: 0;
+	align-self: flex-end;
+	border-top: black solid 0.25vmin;
+}
+#spbar {
+	position: absolute;
+	top: 10%;
+	left: 26.25%;
+	height: 80%;
+	width: 2.5%;
+	background-color: rgb(154, 154, 154);
+	border: black solid 0.25vmin;
+	border-top: black solid 0.35vmin;
+	border-bottom: black solid 0.35vmin;
+	transform: perspective(10px) rotateY(1.25deg);
+	display: flex;
+}
+#innerspbar {
+	background-color: gold;
+	opacity: 0.75;
+	width: 100%;
+	height: 0;
+	align-self: flex-end;
+	border-top: black solid 0.25vmin;
 }
 #consoletitle {
 	position: absolute;
+	top: 27%;
+	text-align: center;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	left: 11.25%;
 	z-index: 3;
+	font-size: 2vmin;
+	font-family: "Inconsolata";
+	transform: perspective(10px) rotateX(-10deg);
 }
 .arrow1 {
 	position: absolute;
-	top: calc(0% + 2px);
-	left: calc(0% + 2px);
-	height: calc(100% - 4px);
-	width: 10%;
+	width: 5%;
+	height: 15%;
+	left: calc(7% + 0.25vmin);
+	top: 60%;
 	border: black solid 0.25vmin;
-	background-color: #b1b1b1;
+	background-color: #9c9c9c;
 	font-family: "Inconsolata";
 	font-size: 5vmin;
-}
-#consoletitle {
-	width: 100%;
 }
 .arrow2 {
 	position: absolute;
-	top: calc(0% + 2px);
-	left: calc(90% - 2px);
-	height: calc(100% - 4px);
-	width: 10%;
+	width: 5%;
+	height: 15%;
+	left: calc(42% - 0.25vmin);
+	top: 60%;
 	border: black solid 0.25vmin;
-	background-color: #b1b1b1;
+	background-color: #9c9c9c;
 	font-size: 5vmin;
 	font-family: "Inconsolata";
 }
-
 .upgradeimage {
-	width: 27.5%;
+	width: 30%;
 	aspect-ratio: 1 / 1;
+	position: absolute;
+	top: calc(15% + 1em - 0.5vmin);
+	left: 65%;
 }
 
 .upgradebutton {
 	border: black solid 0.25vmin;
-	background-color: #b1b1b1;
+	background-color: #9c9c9c;
 	font-family: "Inconsolata";
-	width: 40%;
-	height: 100%;
+	width: 30%;
+	height: 15%;
 	font-size: 3vmin;
-}
-
-.buildingtitle {
-	font-size: 1.7vmin;
-	padding: 0px;
 	position: absolute;
-	width: 60%;
-	top: 0%;
-	border-bottom: black solid 0.25vmin;
-	left: 20%;
+	left: 12%;
+	top: 60%;
+}
+.upgradetitle {
+	position: absolute;
+	left: 7%;
+	top: 14%;
+	border: black solid 0.25vmin;
+	padding: 1%;
+	background-color: #9c9c9c;
+}
+.buildingtitle {
+	border: black solid 0.25vmin;
+	top: 2.5%;
+	padding: 1%;
+	width: 70%;
+	position: absolute;
+	left: 15%;
+	background-color: #9c9c9c;
+}
+.upgradedesc {
+	position: absolute;
+	left: calc(7% + 0.25vmin);
+	top: 80%;
+	border: black solid 0.25vmin;
+	padding: 1%;
+	font-size: 1.7vmin;
+	background-color: #9c9c9c;
+	width: calc(86% - 0.25vmin);
+}
+.upgradecap {
+	position: absolute;
+	left: 7%;
+	top: 29%;
+	border: black solid 0.25vmin;
+	padding: 1%;
+	background-color: #9c9c9c;
 }
 
+.upgradeprice {
+	position: absolute;
+	left: 7%;
+	top: 43%;
+	border: black solid 0.25vmin;
+	padding: 1%;
+	background-color: #9c9c9c;
+}
 .buttoncontainer {
 	height: 15%;
 }
@@ -318,7 +628,9 @@ audio {
 	top: 90%;
 	left: 76%;
 	outline: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	font-size: 4vmin;
 	font-family: "Inconsolata";
 	text-align: center;
@@ -434,7 +746,8 @@ audio {
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -551,7 +864,28 @@ button:hover {
 	padding: 0px;
 	overflow: hidden;
 }
-
+#barrow1 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(12% + 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-family: "Inconsolata";
+	font-size: 5vmin;
+}
+#barrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-size: 5vmin;
+	font-family: "Inconsolata";
+}
 .bupgradetitle {
 	position: absolute;
 	left: 12%;
@@ -594,11 +928,11 @@ button:hover {
 	border: black solid 0.25vmin;
 	background-color: #b1b1b1;
 	font-family: "Inconsolata";
-	width: 40%;
+	width: 35%;
 	height: 15%;
 	font-size: 3vmin;
 	position: absolute;
-	left: 12%;
+	left: 17%;
 	top: 60%;
 }
 
@@ -662,7 +996,28 @@ button:hover {
 	padding: 0px;
 	overflow: hidden;
 }
-
+#sparrow1 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(12% + 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-family: "Inconsolata";
+	font-size: 5vmin;
+}
+#sparrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-size: 5vmin;
+	font-family: "Inconsolata";
+}
 .spupgradetitle {
 	position: absolute;
 	left: 12%;
@@ -705,11 +1060,11 @@ button:hover {
 	border: black solid 0.25vmin;
 	background-color: #b1b1b1;
 	font-family: "Inconsolata";
-	width: 40%;
+	width: 35%;
 	height: 15%;
 	font-size: 3vmin;
 	position: absolute;
-	left: 12%;
+	left: 17%;
 	top: 60%;
 }
 
@@ -742,7 +1097,28 @@ button:hover {
 	padding: 0px;
 	overflow: hidden;
 }
-
+#qolarrow1 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(12% + 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-family: "Inconsolata";
+	font-size: 5vmin;
+}
+#qolarrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-size: 5vmin;
+	font-family: "Inconsolata";
+}
 .qolupgradetitle {
 	position: absolute;
 	left: 12%;
@@ -786,11 +1162,11 @@ button:hover {
 	border: black solid 0.25vmin;
 	background-color: #b1b1b1;
 	font-family: "Inconsolata";
-	width: 40%;
+	width: 35%;
 	height: 15%;
 	font-size: 3vmin;
 	position: absolute;
-	left: 12%;
+	left: 17%;
 	top: 60%;
 }
 
@@ -810,18 +1186,21 @@ button:hover {
 
 #newsticker {
 	display: none;
-	width: 50%;
+	width: 45%;
 	height: 2%;
 	position: absolute;
-	top: calc(98% - 2px);
-	left: 25%;
+	top: 97%;
+	left: 27.5%;
 	outline: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	font-size: 1.9vmin;
 	font-family: "Inconsolata";
 	text-align: center;
 	white-space: nowrap;
 	overflow: hidden;
+	transform: perspective(10px) rotateX(1.5deg);
 }
 
 #newstickertext {
@@ -850,7 +1229,8 @@ button:hover {
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -888,7 +1268,28 @@ button:hover {
 #rupgrade12 {
 	display: none;
 }
-
+#rarrow1 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(12% + 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #777777;
+	font-family: "Inconsolata";
+	font-size: 5vmin;
+}
+#rarrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #777777;
+	font-size: 5vmin;
+	font-family: "Inconsolata";
+}
 #rollupgradebuilding {
 	display: none;
 	position: absolute;
@@ -951,11 +1352,11 @@ button:hover {
 	border: black solid 0.25vmin;
 	background-color: #777777;
 	font-family: "Inconsolata";
-	width: 40%;
+	width: 35%;
 	height: 15%;
 	font-size: 3vmin;
 	position: absolute;
-	left: 12%;
+	left: 17%;
 	top: 60%;
 }
 
@@ -1024,7 +1425,32 @@ button:hover {
 	font-family: "Inconsolata";
 	display: none;
 }
-
+#revarrow1 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(12% + 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
+	font-family: "Inconsolata";
+	font-size: 4vmin;
+}
+#revarrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
+	font-size: 4vmin;
+	font-family: "Inconsolata";
+}
 #revolutioncircle {
 	position: absolute;
 	top: 15%;
@@ -1215,13 +1641,15 @@ button:hover {
 
 .revupgradebutton {
 	border: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	font-family: "Inconsolata";
-	width: 40%;
+	width: 35%;
 	height: 15%;
 	font-size: 3vmin;
 	position: absolute;
-	left: 12%;
+	left: 17%;
 	top: 60%;
 }
 
@@ -1293,8 +1721,16 @@ button:hover {
 	z-index: 10;
 	animation: 1s linear 0.5s disappear;
 	max-width: 50%;
+	filter: brightness(0.5);
 }
-
+.boxparticles {
+	width: 1vmin;
+	height: 1vmin;
+	position: absolute;
+	display: inline;
+	opacity: 1;
+	z-index: -10;
+}
 #bouncereset {
 	position: absolute;
 	top: 5%;
@@ -1312,7 +1748,8 @@ button:hover {
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -1478,7 +1915,15 @@ img {
 	padding: 0px;
 	color: #c2c2c2;
 }
-
+#bouncebuildingtitle {
+	position: absolute;
+	left: 12%;
+	top: 2%;
+	border: black solid 0.25vmin;
+	padding: 1%;
+	background: rgb(0, 0, 0);
+	background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(2, 2, 87, 1) 100%);
+}
 .boupgradetitle {
 	position: absolute;
 	left: 12%;
@@ -1652,7 +2097,8 @@ img {
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -1741,7 +2187,8 @@ img {
 	margin: 5%;
 	width: 90%;
 	height: 85%;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -1852,7 +2299,8 @@ img {
 	margin: 5%;
 	width: 90%;
 	height: 85%;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -1864,6 +2312,7 @@ img {
 	width: 50%;
 	position: absolute;
 	bottom: 10%;
+	height: 20%;
 	left: 25%;
 	background-color: #dddddd;
 	outline: black solid 0.25vmin;
@@ -1889,7 +2338,8 @@ img {
 	margin: 5%;
 	width: 90%;
 	height: 95%;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -1942,7 +2392,9 @@ img {
 	font-family: "Inconsolata";
 	text-align: center;
 	border: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	z-index: 2;
 }
 #dropdown2 {
@@ -1955,7 +2407,9 @@ img {
 	font-family: "Inconsolata";
 	text-align: center;
 	border: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	z-index: 2;
 }
 #menu {
@@ -1964,7 +2418,9 @@ img {
 	display: none;
 	position: absolute;
 	top: 5%;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	border: black 0.25vmin solid;
 	border-top: none;
 	flex-direction: column;
@@ -1977,7 +2433,9 @@ img {
 	position: absolute;
 	top: 5%;
 	left: 75%;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	border: black 0.25vmin solid;
 	border-top: none;
 	flex-direction: column;
@@ -1991,7 +2449,9 @@ img {
 	border: none;
 	border-bottom: black solid 0.25vmin;
 	border-right: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 }
 #moveright {
 	width: 50%;
@@ -2000,7 +2460,9 @@ img {
 	text-align: center;
 	border: none;
 	border-bottom: black solid 0.25vmin;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 }
 #highlighter {
 	width: 100%;
@@ -2012,15 +2474,6 @@ img {
 	border: none;
 	border-bottom: black solid 0.25vmin;
 	background-color: rgb(10, 6, 84);
-}
-#focus {
-	position: absolute;
-	top: 6%;
-	left: 25%;
-	border: black solid 0.25vmin;
-	background-color: #c2c2c2;
-	font-family: "Inconsolata";
-	font-size: 1.75vmin;
 }
 #boxpointdisplay {
 	text-align: center;
@@ -2237,7 +2690,8 @@ img {
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -2562,7 +3016,8 @@ img {
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -2570,7 +3025,17 @@ img {
 	align-items: center;
 	text-align: center;
 }
-
+#uparrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-size: 5vmin;
+	font-family: "Inconsolata";
+}
 #upresetbutton {
 	width: 50%;
 	height: 20%;
@@ -2738,12 +3203,24 @@ img {
 	font-size: 2vmin;
 	font-family: "Inconsolata";
 }
+#pparrow2 {
+	position: absolute;
+	width: 5%;
+	height: 15%;
+	left: calc(52% - 0.25vmin);
+	top: 60%;
+	border: black solid 0.25vmin;
+	background-color: #b1b1b1;
+	font-size: 5vmin;
+	font-family: "Inconsolata";
+}
 #ppresettext {
 	margin: 5%;
 	width: 90%;
 	height: 85%;
 	font-size: 2vmin;
-	background-color: #bbbbbb;
+	background: rgb(187, 187, 187);
+	background: radial-gradient(circle, rgba(187, 187, 187, 1) 0%, rgba(163, 163, 163, 1) 100%);
 	outline: black solid 0.25vmin;
 	display: flex;
 	flex-direction: column;
@@ -2886,7 +3363,9 @@ img {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(172, 172, 172, 1) 100%);
 	border: black 0.5vmin solid;
 }
 .boupgradeicon6 {
@@ -2941,23 +3420,26 @@ img {
 	position: absolute;
 	left: 10%;
 	top: 10%;
-	background-color: #777777;
+	background: #777777;
+	background: radial-gradient(circle, rgba(119, 119, 119, 1) 0%, rgba(97, 97, 97, 1) 100%);
 	border: 0.5vmin solid black;
 	display: block;
 	overflow: scroll;
+	overflow-y: hidden;
 	scroll-behavior: smooth;
 }
 #sillycontainer {
-	width: 1500%;
+	width: 1000%;
 	height: 100%;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 .stat {
 	display: flex;
-	width: 90%;
+	width: 2%;
 	height: 85%;
-	margin: 0.25% 0.5%;
+	margin: 0 0.25%;
 	border: 0.375vmin black solid;
 	text-align: center;
 	align-items: center;
@@ -2966,7 +3448,8 @@ img {
 	font-size: 2vmin;
 	line-height: 1.5;
 	font-family: "Inconsolata";
-	background-color: #c2c2c2;
+	background: rgb(194, 194, 194);
+	background: radial-gradient(circle, rgba(194, 194, 194, 1) 0%, rgba(152, 152, 152, 1) 100%);
 }
 #minimap {
 	margin: 5%;
@@ -3077,6 +3560,17 @@ img {
 	border-radius: 50%;
 	background-color: #a1a1a1;
 }
+#updatetext {
+	font-family: "Inconsolata";
+	text-align: center;
+	position: absolute;
+	bottom: 5%;
+	left: 2.5%;
+	width: 20%;
+	height: 50%;
+	background-color: rgb(185, 185, 185);
+	outline: black solid 0.5vmin;
+}
 @keyframes disappear {
 	from {
 		opacity: 0.5;
@@ -3119,5 +3613,30 @@ img {
 	}
 	to {
 		background-position: 0% 30px;
+	}
+}
+@keyframes shootup {
+	from {
+		translate: 0% 0%;
+	}
+	to {
+		translate: 0% -2500%;
+		opacity: 0;
+		background-color: white;
+	}
+}
+@keyframes rotate {
+	from {
+	}
+	to {
+		rotate: 360deg;
+	}
+}
+@keyframes pressed {
+	from {
+	}
+	to {
+		bottom: 4%;
+		box-shadow: none;
 	}
 }

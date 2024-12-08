@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
 	"use strict";
-	var newsticker, event, newstickerelement, newstickercontainer, left, leftcap, resetonce, newstickerchoices;
+	var newsticker, newstickerelement, newstickercontainer, left, resetonce, newstickerchoices;
 	newstickerelement = document.getElementById("newstickertext");
 	newstickercontainer = document.getElementById("newsticker");
 	left = 0;
 	resetonce = 0;
 	let textrunning = false;
-	
+
 	function newnewsticker() {
 		newstickerchoices = [
 			"hey im back! life is so good",
@@ -253,6 +253,36 @@ document.addEventListener("DOMContentLoaded", function () {
 			"string",
 			"free cat food this way <-----",
 			"meowfest caught with thousands of bottles of particles",
+			"in plinko civilization, you have the option to go for the orange box or to go for the green box, but no one goes for the green box",
+			"physics are fixed as of writing this",
+			"i should ask meowfest for the old newsticers",
+			"quickly wanted to tell you thanks for playing!!",
+			"what powers this thing",
+			"parseInt(0.0000000005) //prints 5 (try it in the console)",
+			"[] == false //prints true (try it in the console)",
+			"document.getElementById('newsticker').style.display = 'none'",
+			"check out my other projects if you want lol",
+			"i lost the password to the music account",
+			"new music coming soon?",
+			"did you know: the game has gone through 5 different ball physics reforms",
+			"new at " + new Date().getHours().toString() + " man summons king von to kill the red boxes",
+			"new at " + new Date().getHours().toString() + " local javascript developer finds how to find the hour",
+			"new at " + new Date().getHours().toString() + " man attempts to break into plinko board and fails",
+			"new at " + new Date().getHours().toString() + " new survey says that 24.3% of balls dont like the yellow box",
+			"new at " + new Date().getHours().toString() + " new survey says that 3.23% of balls prefer special pegs",
+			"new at " + new Date().getHours().toString() + " new survey says that 1 in 39 balls like to clip into walls",
+			"new at " + new Date().getHours().toString() + " new survey says that new ui is awesome",
+			"new at " + new Date().getHours().toString() + " new survey says that the game is really cool",
+			"new at " + new Date().getHours().toString() + " warehouse for batteries catches on fire",
+			"new at " + new Date().getHours().toString() + " scientists say that the newsticker isnt about the news anymore",
+			"new at " + new Date().getHours().toString() + " meowfest still unlikely to return",
+			"new at " + new Date().getHours().toString() + " donald box favored to win in " + new Date().getFullYear().toString() + "election",
+			"new at " + new Date().getHours().toString() + " themes may come to plinko incremental",
+			"new at " + new Date().getHours().toString() + " this is the 270th entry",
+			"new at " + new Date().getHours().toString() + " meowfest amazed by futuristic boxify building",
+			"did you know: i cant stop writing these",
+			"look ma im the news",
+			"why am i slanted ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
 		];
 		newsticker = Math.ceil(Math.random() * newstickerchoices.length);
 		newstickerelement.innerHTML = newstickerchoices[newsticker - 1];
@@ -267,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	function marquee() {
 		left = left + 0.075;
 		newstickerelement.style.right = left.toString() + "%";
-		if (left >= 100 || newstickerelement.offsetLeft >= newstickercontainer.offsetWidth) {
+		if (left >= 100 || newstickerelement.offsetLeft - newstickerelement.offsetWidth >= newstickercontainer.offsetWidth) {
 			newstickerelement.innerHTML = "";
 			if (resetonce === 0) {
 				resetonce = 1;
@@ -305,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 	setInterval(marquee, 1);
 	newstickerelement.addEventListener("click", () => {
-		newentry('Newsticker entry #' + newsticker.toString() + ' removed.')
+		newentry("Newsticker entry #" + newsticker.toString() + " removed.");
 		newstickerelement.innerHTML = "";
 		if (resetonce === 0) {
 			resetonce = 1;

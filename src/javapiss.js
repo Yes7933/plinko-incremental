@@ -531,6 +531,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 		return str;
 	}
+	function compare2(a, b) {
+		return a.compare(b) == -1 ? 0 : a.compare(b);
+	}
 	function sumlist(list) {
 		let sum = new Decimal(0);
 		for (let i = 0; i <= list.length; i += 1) {
@@ -1004,7 +1007,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		//great wall of stats
 		let effectlist = [
 			new Decimal(ballcomp).divideBy(new Decimal(ballamount)),
-			new Decimal(level),
+			new Decimal(level.plus(new Decimal(3)).divideBy(new Decimal("3"))),
 			new Decimal("1").plus(new Decimal("1.25").times(pupgradelist[0])),
 			new Decimal("2").pow(pupgradelist[0].divideBy(20).floor()),
 			new Decimal("1").plus(
@@ -1719,7 +1722,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			new Decimal(Math.floor(revolutions.plus(1).log10())).times(rupgradelist[11]),
 			new Decimal(2).times(upupgradelist[5]),
 			new Decimal(10).times(boupgradelist[29]),
-			new Decimal("1.5").pow(annihilationreq.log10() * hits.compare(23)),
+			new Decimal("1.5").pow(annihilationreq.log10() * compare2(hits, 23)),
 		];
 		titlelist = [
 			"<br>Strike Boost II: -",
@@ -1739,7 +1742,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		if (strikeresets >= 1) {
 			document.getElementById("strikereqstats").innerHTML = tempstring + "<br><br>Requirement: " + decimalToString(hitreq);
 		}
-		effectlist = [new Decimal("3").pow(hitreq.plus(1).log10() * hits.compare(17)), new Decimal(10).times(boupgradelist[29])];
+		effectlist = [new Decimal("3").pow(hitreq.plus(1).log10() * compare2(hits, 17)), new Decimal(10).times(boupgradelist[29])];
 		titlelist = ["<br>Hit Milestone 17: -", "<br>Other VI: -"];
 		tempstring = "Annihilation Requirement <br><br> Base: " + decimalToString(new Decimal("200").times(new Decimal(1.2).pow(particles)));
 		for (let i = 0; i < effectlist.length; i++) {
@@ -1886,7 +1889,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 		ballpointgain = new Decimal("1")
 			.times(new Decimal(ballcomp).divideBy(new Decimal(ballamount)))
-			.times(level)
+			.times(level.plus(new Decimal("3")).divideBy(new Decimal("3")))
 			.times(new Decimal("1").plus(new Decimal("1.25").times(pupgradelist[0])))
 			.times(new Decimal("2").pow(pupgradelist[0].divideBy(20).floor()))
 			.times(
@@ -2105,10 +2108,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			.floor();
 		annihilationreq = new Decimal("200")
 			.times(new Decimal(1.2).pow(particles))
-			.minus(new Decimal("3").pow(hitreq.plus(1).log10() * hits.compare(17)))
+			.minus(new Decimal("3").pow(hitreq.plus(1).log10() * compare2(hits, 17)))
 			.minus(new Decimal(10).times(boupgradelist[29]))
 			.floor();
-		hitreq = hitreq.minus(new Decimal("1.5").pow(annihilationreq.log10() * hits.compare(23))).floor();
+		hitreq = hitreq.minus(new Decimal("1.5").pow(annihilationreq.log10() * compare2(hits, 23))).floor();
 		if (hitreq.compare(0) <= 0) {
 			hitreq = new Decimal("1");
 		}
@@ -2538,6 +2541,54 @@ document.addEventListener("DOMContentLoaded", function () {
 		popup.style.top = (80 - 5 * Math.random()).toString() + "%";
 		popup.innerHTML = "+" + decimalToString(bpdisplay) + " BallPoints, +" + decimalToString(xpdisplay) + " XP";
 		setTimeout(despawnpopuptext, 1000, popupid);
+	}
+	function boxparticles(b) {
+		for (let i = 1; i <= 50; i++) {
+			let boxpos;
+			let particle = document.createElement("div");
+			document.getElementById("board").appendChild(particle);
+			particle.setAttribute("class", "boxparticles");
+			if (b / 100 <= 1 / 7) {
+				particle.style.backgroundColor = "#eba834";
+				boxpos = 0;
+			}
+			if (b / 100 > 6 / 7) {
+				particle.style.backgroundColor = "#eba834";
+				boxpos = 6;
+			}
+			if (b / 100 > 1 / 7 && b / 100 <= 2 / 7) {
+				particle.style.backgroundColor = "#d9e317";
+				boxpos = 1;
+			}
+			if (b / 100 > 5 / 7 && b / 100 <= 6 / 7) {
+				particle.style.backgroundColor = "#d9e317";
+				boxpos = 5;
+			}
+			if (b / 100 > 2 / 7 && b / 100 <= 3 / 7) {
+				particle.style.backgroundColor = "#f7432f";
+				boxpos = 2;
+			}
+			if (b / 100 > 4 / 7 && b / 100 <= 5 / 7) {
+				particle.style.backgroundColor = "#f7432f";
+				boxpos = 4;
+			}
+			if (b / 100 > 3 / 7 && b / 100 <= 4 / 7) {
+				particle.style.backgroundColor = "#91d47d";
+				boxpos = 3;
+			}
+			particle.style.rotate = (Math.random() * 360).toString() + "deg";
+			particle.style.left = "calc(" + ((Math.random() * 100) / 7 + (boxpos * 100) / 7).toString() + "% - 0.5vmin)";
+			particle.style.bottom = Math.random() * 10 + "%";
+			let animationlength = Math.random() + 0.1;
+			particle.style.animation = animationlength.toString() + "s ease-in forwards 1 shootup, 0.25s linear 0s infinite rotate";
+			setTimeout(
+				(element) => {
+					element.remove();
+				},
+				animationlength * 1000,
+				particle
+			);
+		}
 	}
 	//new save setup
 	timelaston = new Date().getTime();
@@ -3097,7 +3148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		"Arrow [10 ↑ 308.252]",
 		"Hyper-E [E308.252]",
 		"Blind [ ]",
-		"Random [very VERY laggy]",
+		"Random [randomly cycles through]",
 	];
 	botitlelist = [
 		"Progression",
@@ -3377,7 +3428,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 		if (activechallenge !== 0) {
 			document.getElementById("challengestart").innerHTML = "Exit!";
-			document.body.style.backgroundColor = "#729cb0";
+			document.body.style.backgroundColor = "rgb(167, 167, 167)";
 		}
 		if (challengelist[0] >= 1) {
 			document.getElementById("challenge2").style.display = "block";
@@ -3413,6 +3464,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		if (notation == 9) {
 			display();
 		}
+		document.getElementById("ballcompactionmeter").innerHTML =
+			"Ball Compaction (extra balls contribute as a BallPoint + XP multipier): x" + ballcomp.toString();
 		//more displays...
 		taskprice = [
 			new Decimal("10").times(new Decimal("1.25").pow(tasks[0])),
@@ -3484,7 +3537,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			document.getElementById("boxifyupgradebuilding").style.display = "inline";
 			document.getElementById("specialpegbuilding").style.display = "inline";
 			document.getElementById("qolbuilding").style.display = "inline";
-			document.getElementById("movehelp").style.display = "none";
 			document.getElementById("newsticker").style.display = "inline";
 			document.getElementById("specialpegdisplay").innerHTML = "You have " + decimalToString(specialpegs) + " Special Pegs!";
 			document.getElementById("specialpegdisplay").style.display = "flex";
@@ -3732,6 +3784,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				xpgaindisplay = xpgain.times(boxvalues[3]);
 			}
 			spawnpopuptext(ballpointgaindisplay, xpgaindisplay, xposdespawn * 100);
+			boxparticles(xposdespawn * 100);
 			despawn = 0;
 			xposdespawn = 0;
 		}
@@ -3920,7 +3973,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Boxify reset triggered. Gain: ' + decimalToString(boxpointgain) + ' BP');
+		newentry("Boxify reset triggered. Gain: " + decimalToString(boxpointgain) + " BP");
 		boxpoints = boxpoints.plus(boxpointgain);
 		boxifyresets = boxifyresets.plus(new Decimal("1"));
 		ballpoints = new Decimal("0");
@@ -3997,7 +4050,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Roll reset triggered. Gain: ' + decimalToString(new Decimal(1)) + ' RP');
+		newentry("Roll reset triggered. Gain: " + decimalToString(new Decimal(1)) + " RP");
 		rollpoints = rollpoints.plus(new Decimal("1"));
 		rollresets = rollresets.plus(new Decimal("1"));
 		ballpoints = new Decimal("0");
@@ -4132,17 +4185,17 @@ document.addEventListener("DOMContentLoaded", function () {
 			qolupgradelist = [new Decimal("0"), new Decimal("0"), new Decimal("0"), new Decimal("0")];
 		}
 		if (transferresets.compare(1) >= 0) {
-			newentry('Battery gain: ' + decimalToString(batterygain) + ' batteries');
+			newentry("Battery gain: " + decimalToString(batterygain) + " batteries");
 			batteries = batteries.plus(batterygain);
 		}
 		if (respec === 1) {
-			newentry('Bounce reset triggered. Gain: ' + decimalToString(jumpgain) + ' J');
+			newentry("Bounce reset triggered. Gain: " + decimalToString(jumpgain) + " J");
 			bounceresets = bounceresets.plus(new Decimal("1"));
 			bounceresettime = new Decimal("0");
 			jumps = jumps.add(jumpgain);
 			totaljumps = totaljumps.add(jumpgain);
 		} else {
-			newentry('Bounce Respec triggered. All bounce upgrades have been refunded.');
+			newentry("Bounce Respec triggered. All bounce upgrades have been refunded.");
 		}
 		ballpoints = new Decimal("0");
 		xp = new Decimal("0");
@@ -4308,7 +4361,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Energy reset triggered. Gain: ' + decimalToString(energy) + ' energy');
+		newentry("Energy reset triggered. Gain: " + decimalToString(energy) + " energy");
 		energy = energy.plus(energygain);
 		if (hits.compare(24) < 0) {
 			ballpoints = new Decimal("0");
@@ -4467,7 +4520,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Challenge #' + activechallenge.toString() + ' activated.');
+		newentry("Challenge #" + activechallenge.toString() + " activated.");
 		ballpoints = new Decimal("0");
 		xp = new Decimal("0");
 		level = new Decimal("1");
@@ -4628,7 +4681,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Electricity reset triggered. Gain: ' + decimalToString(electricitygain) + ' El');
+		newentry("Electricity reset triggered. Gain: " + decimalToString(electricitygain) + " El");
 		electricity = electricity.plus(electricitygain);
 		transferresets = transferresets.plus(1);
 		ballpoints = new Decimal("0");
@@ -4789,7 +4842,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Strike reset triggered. Gain: ' + decimalToString(new Decimal(1)) + ' H');
+		newentry("Strike reset triggered. Gain: " + decimalToString(new Decimal(1)) + " H");
 		hits = hits.plus(1);
 		strikeresets++;
 		ballpoints = new Decimal("0");
@@ -4820,7 +4873,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				95 + 2 * challengelist[6],
 				20,
 			];
-			document.body.style.backgroundColor = "#b0def5";
+			document.body.style.backgroundColor = "rgb(212, 212, 212)";
 			if (mutemusic === 1) {
 				musictrack.pause();
 				bgmusic = "assets/audio/real.mp3";
@@ -5016,7 +5069,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Annihilation reset triggered. Gain: ' + decimalToString(new Decimal(1)) + ' P');
+		newentry("Annihilation reset triggered. Gain: " + decimalToString(new Decimal(1)) + " P");
 		particles = particles.plus(1);
 		annihilationresets++;
 		ballpoints = new Decimal("0");
@@ -5044,7 +5097,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				95 + 2 * challengelist[6],
 				20,
 			];
-			document.body.style.backgroundColor = "#b0def5";
+			document.body.style.backgroundColor = "rgb(212, 212, 212)";
 			if (mutemusic === 1) {
 				musictrack.pause();
 				bgmusic = "assets/audio/real.mp3";
@@ -5240,7 +5293,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Condense reset triggered. Gain: ' + decimalToString(ultrapegsgain) + ' UP');
+		newentry("Condense reset triggered. Gain: " + decimalToString(ultrapegsgain) + " UP");
 		ultrapegs = ultrapegs.plus(ultrapegsgain);
 		condenseresets++;
 		ballpoints = new Decimal("0");
@@ -5331,7 +5384,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		} else {
 			window.console.log("reset saving failed");
 		}
-		newentry('Package reset triggered. Gain: ' + decimalToString(packagepointsgain) + ' packages');
+		newentry("Package reset triggered. Gain: " + decimalToString(packagepointsgain) + " packages");
 		packagepoints = packagepoints.plus(packagepointsgain);
 		packageresets++;
 		ballpoints = new Decimal("0");
@@ -5481,7 +5534,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				bgmusic = "assets/audio/challenge.mp3";
 			}
 			if (carti === 1) {
-				newentry('teehee :3')
+				newentry("teehee :3");
 				bgmusic = "assets/audio/carti.mp3";
 			}
 			musictrack.pause();
@@ -5580,6 +5633,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			) {
 				boupgradelist[b] = 1;
 			}
+			if (activechallenge === 8) boupgradelist[24] = 1;
 		});
 		respec = 0;
 		bouncereset();
@@ -6074,7 +6128,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 			price = boupgradeprice[bobutton - 1].times(new Decimal("5").pow(new Decimal(templist.length)));
 			document.getElementById("boupgradetitle").innerHTML = botitlelist[Math.ceil(bobutton / 5) - 1] + " " + botitlelist[(bobutton % 5) + 5];
-			if (bobutton > 24) {
+			if (bobutton > 25) {
 				document.getElementById("boupgradetitle").innerHTML = botitlelist[bobutton - 16];
 			}
 			document.getElementsByClassName("boupgradeimage")[0].src = "assets/img/boupgrade" + bobutton.toString() + ".png";
@@ -6211,7 +6265,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				);
 			}
 			document.getElementById("challengestart").innerHTML = "Exit!";
-			document.body.style.backgroundColor = "#729cb0";
+			document.body.style.backgroundColor = "rgb(167, 167, 167)";
 			burnoutfunctionality = setInterval(burnout, 1000);
 		} else if (activechallenge > 0) {
 			challengegoal = [
@@ -6224,7 +6278,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				95 + 2 * challengelist[6],
 				20,
 			];
-			document.body.style.backgroundColor = "#b0def5";
+			document.body.style.backgroundColor = "rgb(212, 212, 212)";
 			if (mutemusic === 1) {
 				musictrack.pause();
 				bgmusic = "assets/audio/real.mp3";
@@ -6376,15 +6430,15 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		}
 	});
-	let focus = false;
+	let focus = true;
 	document.getElementById("focus").addEventListener("click", () => {
 		if (focus) {
 			opacity(document.getElementById("pupgradebuilding"), 0, 1, 25);
-			opacity(document.getElementById("board"), 1, 0.25, 25);
+			opacity(document.getElementById("opacitytoggle"), 0, 0.55, 25);
 			focus = false;
 		} else {
 			opacity(document.getElementById("pupgradebuilding"), 1, 0, 25);
-			opacity(document.getElementById("board"), 0.25, 1, 25);
+			opacity(document.getElementById("opacitytoggle"), 0.55, 0, 25);
 			focus = true;
 		}
 	});
@@ -6602,7 +6656,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.querySelectorAll(".mapbutton").forEach((e, b3) => {
 		e.addEventListener("click", () => {
 			let b = b3 - 1;
-			if (b < 3 || (b < 5 && rollresets.compare(1) >= 0) || (b <= 6 && boupgradelist[24] === 1) || (b <= 7 && strikeresets > 0)) {
+			if (b <= 3 || (b < 5 && rollresets.compare(1) >= 0) || (b <= 6 && boupgradelist[24] === 1) || (b <= 7 && strikeresets > 0)) {
 				for (l = 0; l < ballList.length; l = l + 1) {
 					pegarea.removeChild(document.getElementById("ball" + ballList[l].index.toString()));
 				}
@@ -6800,5 +6854,11 @@ document.addEventListener("DOMContentLoaded", function () {
 				document.getElementById("particleupgrade" + (m + 1).toString()).setAttribute("class", "particleupgrade");
 			}
 		}
+	});
+	//disables space clicking buttons (so fucking annoying use enter)
+	document.querySelectorAll("button").forEach(function (item) {
+		item.addEventListener("focus", function () {
+			this.blur();
+		});
 	});
 });
