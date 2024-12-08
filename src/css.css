@@ -1,6 +1,6 @@
 @font-face {
 	font-family: "Inconsolata";
-	src: url(/assets/Inconsolata-Black.ttf);
+	src: url(../assets/Inconsolata-Black.ttf);
 }
 img {
 	aspect-ratio: 1 / 1;
@@ -434,7 +434,7 @@ audio {
 	position: absolute;
 	top: calc(30% + 0.5vmin);
 	left: calc(2% + 0.5vmin);
-	background-image: url("/assets/img/logbackground.png");
+	background-image: url("../assets/img/logbackground.png");
 	background-repeat: repeat;
 	background-position: 0% 0px;
 	animation: 1s forwards linear 0s infinite backgroundup;
